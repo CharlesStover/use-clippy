@@ -33,16 +33,18 @@ function MyComponent() {
         onClick={() => {
           alert(`Your clipboard contains: ${clipboard}`);
         }}
-        value="Read my clipboard"
-      />
+      >
+        Read my clipboard
+      </button>
 
       {/* Button that demonstrates writing to the clipboard. */}
       <button
         onClick={() => {
-          setClipboard(Math.random());
+          setClipboard(`${Math.random()}`);
         }}
-        value="Copy something new"
-      />
+      >
+        Copy something new
+      </button>
     </div>
   );
 }
