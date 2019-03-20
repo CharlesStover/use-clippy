@@ -15,13 +15,24 @@ const createInput = (): HTMLInputElement => {
   const i: HTMLInputElement = document.createElement('input');
   i.setAttribute('size', '0');
   zeroStyles(i,
-    'border-width', 'height',
-    'margin-bottom', 'margin-left', 'margin-right', 'margin-top',
+    'border-width',
+    'bottom',
+    'margin-left', 'margin-top',
     'outline-width',
     'padding-bottom', 'padding-left', 'padding-right', 'padding-top',
-    'width',
+    'right',
   );
   i.style.setProperty('box-sizing', 'border-box');
+  i.style.setProperty('height', '1px');
+  i.style.setProperty('margin-bottom', '-1px');
+  i.style.setProperty('margin-right', '-1px');
+  i.style.setProperty('max-height', '1px');
+  i.style.setProperty('max-width', '1px');
+  i.style.setProperty('min-height', '1px');
+  i.style.setProperty('min-width', '1px');
+  i.style.setProperty('outline-color', 'transparent');
+  i.style.setProperty('position', 'absolute');
+  i.style.setProperty('width', '1px');
   document.body.appendChild(i);
   return i;
 };
