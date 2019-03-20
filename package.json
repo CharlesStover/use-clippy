@@ -1,22 +1,24 @@
 {
-  "name": "use-clipboard",
-  "version": "1.0.0",
+  "name": "use-clippy",
+  "version": "1.0.1",
   "author": "Charles Stover <npmjs@charlesstover.com>",
   "bugs": {
-    "url": "https://github.com/CharlesStover/use-clipboard/issues"
+    "url": "https://github.com/CharlesStover/use-clippy/issues"
   },
   "description": "A React hook for reading from and writing to the clipboard.",
-  "homepage": "https://github.com/CharlesStover/use-clipboard#readme",
+  "homepage": "https://github.com/CharlesStover/use-clippy#readme",
   "license": "MIT",
-  "main": "use-clipboard.js",
-  "repository": "https://github.com/CharlesStover/use-clipboard.git",
+  "main": "use-clippy.js",
+  "repository": "https://github.com/CharlesStover/use-clippy.git",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build",
     "test": "exit 0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "use-force-update": "^1.0.4"
+  },
   "devDependencies": {
     "@types/node": "^11.11.4",
     "@types/react": "^16.8.8",

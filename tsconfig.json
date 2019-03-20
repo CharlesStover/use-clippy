@@ -18,5 +18,5 @@
     "strictPropertyInitialization": true,
     "target": "es5"
   },
-  "files": [ "src/use-clipboard.ts" ]
+  "files": [ "src/use-clippy.ts" ]
 }

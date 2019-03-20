@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useForceUpdate from 'use-force-update';
 
 type ClipboardTuple = [
   string,
@@ -49,19 +49,24 @@ const write = (text: string): void => {
 
 // TODO: async/await
 //   navigator.clipboard.readText() and navigator.clipboard.writeText()
-const useClipboard = (): ClipboardTuple => {
-  const [ , setState ] = useState<string>('');
+const useClippy = (rerender: boolean = true): ClipboardTuple => {
+  const forceUpdate = useForceUpdate();
   return [
+
     read(),
+
     function clipboardWrite(text: string): void {
       write(text);
-      setState(text);
+      if (rerender) {
+        forceUpdate();
+      }
     }
+
   ];
 };
 
 // Required for TypeScript to output a correct .d.ts file.
-export default useClipboard;
+export default useClippy;
 
-module.exports = useClipboard;
-module.exports.default = useClipboard;
+module.exports = useClippy;
+module.exports.default = useClippy;
