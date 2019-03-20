@@ -17,6 +17,7 @@ the clipboard contents and the second item is a function for setting the
 clipboard contents.
 
 ```JavaScript
+import React from 'react';
 import useClippy from 'use-clippy';
 
 function MyComponent() {
@@ -48,4 +49,6 @@ function MyComponent() {
     </div>
   );
 }
+
+export default MyComponent;
 ```
