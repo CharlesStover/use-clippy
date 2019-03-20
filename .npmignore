@@ -1,0 +1,7 @@
+/.git
+/node_modules
+/src
+/.gitignore
+/.npmignore
+/.travis.yml
+/tsconfig.json
