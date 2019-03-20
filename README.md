@@ -3,7 +3,7 @@
 `useClippy` is a React Hook for reading from and writing to the user's
 clipboard.
 
-_Not to be confused with Microsoft Office's Clippy assistant._ 📎
+_Not to be confused with Microsoft Office's assistant, Clippy._ 📎
 
 ## Install
 
