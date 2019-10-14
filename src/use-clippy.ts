@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import * as React from 'react';
 
 interface Clipboard {
   readText(): Promise<string>;
@@ -33,11 +33,23 @@ type ClipboardTuple = [
   (clipboard: string) => void,
 ];
 
+type VoidFunction = () => void;
 
 
-const IS_CLIPBOARD_API_ENABLED = (
+
+const hasClipboardData = (w: Window): w is ClipboardDataWindow =>
+  Object.prototype.hasOwnProperty.call(w, 'clipboardData');
+
+const getClipboardData = (w: ClipboardDataWindow | Window): DataTransfer | null => {
+  if (hasClipboardData(w)) {
+    return w.clipboardData;
+  }
+  return null;
+};
+
+const isClipboardApiEnabled = (navigator: Navigator): navigator is ClipboardNavigator => (
   typeof navigator === 'object' &&
-  typeof (navigator as ClipboardNavigator).clipboard === 'object'
+  typeof navigator.clipboard === 'object'
 );
 
 const NOT_ALLOWED_ERROR = new Error('NotAllowed');
@@ -107,19 +119,17 @@ const write = (text: string): void => {
   }
 };
 
-// TODO: async/await
-//   navigator.clipboard.readText() and navigator.clipboard.writeText()
 const useClippy = (): ClipboardTuple => {
-  const [ clipboard, setClipboard ] = useState('');
+  const [ clipboard, setClipboard ] = React.useState('');
 
   // If the user manually updates their clipboard,
   //   re-render with the new value.
-  if (IS_CLIPBOARD_API_ENABLED) {
-    useEffect(() => {
+  React.useEffect((): void | VoidFunction => {
+    if (isClipboardApiEnabled(navigator)) {
       const clipboardListener = ({ clipboardData }: ClipboardEvent) => {
         const cd: DataTransfer | null =
           clipboardData ||
-          (window as ClipboardDataWindow).clipboardData ||
+          getClipboardData(window) ||
           null;
         if (cd) {
           const text = cd.getData('text/plain');
@@ -128,19 +138,20 @@ const useClippy = (): ClipboardTuple => {
           }
         }
       };
-      const nav: ClipboardNavigator = navigator as ClipboardNavigator;
-      nav.clipboard.addEventListener('copy', clipboardListener);
-      nav.clipboard.addEventListener('cut', clipboardListener);
-      return () => {
-        nav.clipboard.removeEventListener('copy', clipboardListener);
-        nav.clipboard.removeEventListener('cut', clipboardListener);
+      navigator.clipboard.addEventListener('copy', clipboardListener);
+      navigator.clipboard.addEventListener('cut', clipboardListener);
+      return (): void => {
+        if (isClipboardApiEnabled(navigator)) {
+          navigator.clipboard.removeEventListener('copy', clipboardListener);
+          navigator.clipboard.removeEventListener('cut', clipboardListener);
+        }
       };
-    }, [ clipboard, setClipboard ]);
-  }
+    }
+  }, [ clipboard ]);
 
   // Try to read synchronously.
   try {
-    const text = read();
+    const text: string = read();
     if (clipboard !== text) {
       setClipboard(text);
     }
@@ -148,47 +159,38 @@ const useClippy = (): ClipboardTuple => {
 
   // If synchronous reading is disabled, try to read asynchronously.
   catch (e) {
-    if (IS_CLIPBOARD_API_ENABLED) {
-      const nav: ClipboardNavigator = navigator as ClipboardNavigator;
-      nav.clipboard.readText()
-        .then(text => {
+    if (isClipboardApiEnabled(navigator)) {
+      (async (): Promise<void> => {
+        try {
+          const text: string = await navigator.clipboard.readText();
           if (clipboard !== text) {
             setClipboard(text);
           }
-        })
-        .catch(() => {});
+        }
+        catch (_e) { }
+      })();
     }
   }
-  return [
 
-    clipboard,
-
-    function clippySetter(text: string): void {
-
-      /**
-       * Always update the clipboard and re-render,
-       *   even if the current value is the same.
-       * This accounts for when the user updates their clipboard
-       *   from outside the application.
-       * This also allows render animations to re-trigger,
-       *   e.g. "Copied successfully!"
-       */
-      try {
-        write(text);
-        setClipboard(text);
-      }
-      catch (e) {
-        if (IS_CLIPBOARD_API_ENABLED) {
-          const nav: ClipboardNavigator = navigator as ClipboardNavigator;
-          nav.clipboard.writeText(text)
-            .then(() => {
-              setClipboard(text);
-            })
-            .catch(() => {});
+  const syncClipboard = React.useCallback(async (text: string): Promise<void> => {
+    try {
+      write(text);
+      setClipboard(text);
+    }
+    catch (e) {
+      if (isClipboardApiEnabled(navigator)) {
+        try {
+          await navigator.clipboard.writeText(text);
+          setClipboard(text);
         }
+        catch (_e) { }
       }
     }
+  }, []);
 
+  return [
+    clipboard,
+    syncClipboard,
   ];
 };
 
