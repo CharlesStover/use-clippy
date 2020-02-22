@@ -1,0 +1,27 @@
+h1 {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h2 {
+  font-family: sans-serif;
+}
+
+main {
+  margin: 0 auto;
+  width: 60rem;
+}
+
+section {
+  border-top: 1px solid #000000;
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+
+textarea {
+  height: 6rem;
+  overflow: auto;
+  width: 100%;
+}
