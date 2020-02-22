@@ -10,6 +10,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "prismjs": "^1.19.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.4.0",
@@ -38,6 +39,8 @@
     ]
   },
   "devDependencies": {
+    "@types/prismjs": "^1.16.0",
+    "babel-plugin-prismjs": "^2.0.1",
     "node-sass": "^4.13.1"
   }
 }
