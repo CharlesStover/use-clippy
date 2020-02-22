@@ -26,6 +26,12 @@ export default function useApp(): State {
     setClipboard(inputValue);
   }, [inputValue, setClipboard]);
 
+  // Page mysteriously loads in the middle. Probably due to Prism rendering
+  //   styles asynchronously. Scroll to the top of the body on load to fix this.
+  React.useEffect((): void => {
+    window.document.body.scrollIntoView();
+  }, []);
+
   return {
     clipboard,
     handleInputChange,

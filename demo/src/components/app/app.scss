@@ -1,7 +1,7 @@
 h1 {
   font-family: sans-serif;
   margin: 0;
-  padding: 0 0 2rem 0;
+  padding: 0 0 1rem 0;
   text-align: center;
 }
 
@@ -14,6 +14,15 @@ h2 {
 main {
   margin: 0 auto;
   width: 40rem;
+
+  > div {
+    padding: 0 0 1rem 0;
+    text-align: center;
+
+    > img {
+      margin: 0 0.5rem;
+    }
+  }
 
   > section {
     border-top: 1px solid #000000;

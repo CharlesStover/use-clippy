@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Prism } from '..';
+import { Code } from '..';
 import { useApp } from './hooks';
 import './app.scss';
 
@@ -25,8 +25,30 @@ export default function App(): JSX.Element {
         </a>{' '}
         demo
       </h1>
+      <div>
+        <img
+          alt="npm version"
+          height={20}
+          src="https://img.shields.io/npm/v/use-clippy.svg"
+        />
+        <img
+          alt="minzipped size"
+          height={20}
+          src="https://img.shields.io/bundlephobia/minzip/use-clippy.svg"
+        />
+        <img
+          alt="npm downloads"
+          height={20}
+          src="https://img.shields.io/npm/dt/use-clippy.svg"
+        />
+      </div>
       <section>
-        <h2>Reading your clipboard 👓</h2>
+        <h2>
+          Reading your clipboard{' '}
+          <span aria-label="" role="img">
+            👓
+          </span>
+        </h2>
         <p>Your clipboard's contents are displayed here.</p>
         <textarea disabled value={clipboard} />
         <Code>{`
@@ -36,7 +58,12 @@ return <textarea disabled value={clipboard} />;
         `}</Code>
       </section>
       <section>
-        <h2>Setting your clipboard ✍</h2>
+        <h2>
+          Setting your clipboard{' '}
+          <span aria-label="" role="img">
+            ✍
+          </span>
+        </h2>
         <p>
           Clicking the <em>Copy</em> button will set your clipboard's value to
           the input value.
@@ -67,7 +94,12 @@ return (
         `}</Code>
       </section>
       <section>
-        <h2>Sponsor 💗</h2>
+        <h2>
+          Sponsor{' '}
+          <span aria-label="" role="img">
+            💗
+          </span>
+        </h2>
         <p>
           If you are a fan of this project, you may{' '}
           <a
