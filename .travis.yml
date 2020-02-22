@@ -16,14 +16,6 @@ script:
   - yarn test
   - cd ..
 deploy:
-  - api_key:
-      secure: IQCybE8bDxbwk5QjuWlYXjL6uinePuNWLTIFlD3BD625Kj9o8ELF88zLP20IjaOP/sx8eSWFsy9c8ysyaRCxKl73/7WeX3gU9C5rf6bezAbzsZPPA8YZ3eh/CBOT8BNQ4BkBLDrUluKbm6sOjluDoGccFJEIuDW++qX7G2HFj02Cw4fjPCpcIAMaZ8f0DpRWwJj+zUVM2jHXr+rHj0t0CspmdfpMFNmD9d1LV3NWNuN17iUYb5n0Lgth5g5tVubZ3cJbSkI5IfVoom6Xz4mpsKYdvdyoSYkEVpbpa5H03OKsOww8wHFTBIXPESTEVK/70/9k6MW1/q+05Q63FEcAkijbGi4D+5I60tuzPzGRW0U0EGiCOugd9L8KwuqH0balpDb7vFEuc7UjHEmOvrD1Eow4kN7S3yz/0Q0zJG53xDaXi5aycd/Lp3xTdpBiNlZgfQh1MJ5bdggnUMc6odbVU27YzYoB0+no7NgeF+cv3Tk+zmm9IugZ3PacgLYTLzjdm4+9a562P7hbehe0AmGB6+lCInhPPlqRA3E1sbBht1nLM3Ggy3n0Kj4BTASyDxRXjG32tDnOorCMkmxuLAk69rHjeBuGO/0dRH+ydE9pg5Hz20EaDmJQKbFKLhvmFb/V9m2Vrsr5swh1eNotLO5mPjHjijOJkLkDLp1yzM+TWbY=
-    edge: true
-    email: npmjs@charlesstover.com
-    on:
-      branch: master
-    provider: npm
-    skip_cleanup: true
   - edge: true
     github-token:
       secure: Q0cKpgUHYaw5rf7hb4BcGK62/SMl7unYGI8aw30rgYOCzRnuYvmCgBTpyQPOFUHD8LFUJAs334harMPWQ/LhilQYPwRAmfBzWNskojOhsf5n7a9MPkaA3JgR2JHJxfSXX5qLt/xkNdXc77on/9JgRQ/FPVHBz6s1AO7Bh+8TuOlVOld5uDBlDK9e59N2TmV2zLVWrtX1dmiaScO6rFOwyb3yuWKlfizu2y3djTHUs1QAiFvCbxFFhURsciLZVow54U0rOIR8y5gw3qcKCsufb3u6ckKAeqSNBQPAWmaJvRadVQ6j0owafGI3oam8I/SWSFVglv3jva9WQqm9LDnJbd/mk/Qv0wZRWV+zeurFER/9N6i7VI64f2V9nB5ITJwvjvNUwa8hwzrKk1YF2oynxi8hLw+mghrAoTT3ZhrXQYD2RiFYQdYRsa2ORDmGxuoiGSzewX9e/qvSA7ZWAFBkB6z8ztH70aTtnv7O56ZRO4IlQ4nBzqZlN1G6YfHs26v0ylnQH6tqGB2mfVgcgXK98XVL6/WDK/ZrH1VZfkSEnNfr5cur2Q4T3+HtLnlR9jjsmPcioNK7OK4tWgTlpzOhPMxigEnmaOb/Z7DhIW+HB1s2fao3wySCa/8GbULjDKXasGLR7rHJO82mTb2lR/LY863JLT1B6rzfWrU5jZA7+W0=
@@ -34,3 +26,11 @@ deploy:
     provider: pages
     skip-cleanup: true
     target-branch: gh-pages
+  - api_key:
+      secure: IQCybE8bDxbwk5QjuWlYXjL6uinePuNWLTIFlD3BD625Kj9o8ELF88zLP20IjaOP/sx8eSWFsy9c8ysyaRCxKl73/7WeX3gU9C5rf6bezAbzsZPPA8YZ3eh/CBOT8BNQ4BkBLDrUluKbm6sOjluDoGccFJEIuDW++qX7G2HFj02Cw4fjPCpcIAMaZ8f0DpRWwJj+zUVM2jHXr+rHj0t0CspmdfpMFNmD9d1LV3NWNuN17iUYb5n0Lgth5g5tVubZ3cJbSkI5IfVoom6Xz4mpsKYdvdyoSYkEVpbpa5H03OKsOww8wHFTBIXPESTEVK/70/9k6MW1/q+05Q63FEcAkijbGi4D+5I60tuzPzGRW0U0EGiCOugd9L8KwuqH0balpDb7vFEuc7UjHEmOvrD1Eow4kN7S3yz/0Q0zJG53xDaXi5aycd/Lp3xTdpBiNlZgfQh1MJ5bdggnUMc6odbVU27YzYoB0+no7NgeF+cv3Tk+zmm9IugZ3PacgLYTLzjdm4+9a562P7hbehe0AmGB6+lCInhPPlqRA3E1sbBht1nLM3Ggy3n0Kj4BTASyDxRXjG32tDnOorCMkmxuLAk69rHjeBuGO/0dRH+ydE9pg5Hz20EaDmJQKbFKLhvmFb/V9m2Vrsr5swh1eNotLO5mPjHjijOJkLkDLp1yzM+TWbY=
+    edge: true
+    email: npmjs@charlesstover.com
+    on:
+      branch: master
+    provider: npm
+    skip_cleanup: true
