@@ -31,7 +31,7 @@ export default function MyComponent() {
 
   // clipboard is the contents of the user's clipboard.
   // setClipboard('new value') wil set the contents of the user's clipboard.
-  const [ clipboard, setClipboard ] = useClippy();
+  const [clipboard, setClipboard] = useClippy();
 
   return (
     <div>

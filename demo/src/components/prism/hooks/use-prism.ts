@@ -1,21 +1,28 @@
 import Prism from 'prismjs';
-import React, { RefObject } from 'react';
+import React from 'react';
 
-interface State {
-  ref: RefObject<HTMLElement>;
+interface DangerouslySetInnerHTML {
+  __html: string;
 }
 
-export default function usePrism(): State {
-  const ref: RefObject<HTMLElement> = React.useRef<HTMLElement>(null);
+interface Props {
+  children: string;
+  lang: string;
+}
 
-  React.useEffect((): void => {
-    if (ref.current) {
-      Prism.highlightElement(ref.current, false);
-    }
-    Prism.highlightAll();
-  }, []);
+interface State {
+  dangerouslySetInnerHTML: DangerouslySetInnerHTML;
+}
+
+export default function usePrism({ children, lang }: Props): State {
+  const dangerouslySetInnerHTML = React.useMemo(
+    (): DangerouslySetInnerHTML => ({
+      __html: Prism.highlight(children, Prism.languages[lang], lang),
+    }),
+    [children, lang],
+  );
 
   return {
-    ref,
+    dangerouslySetInnerHTML,
   };
 }

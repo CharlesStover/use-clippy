@@ -14,11 +14,15 @@ h2 {
 main {
   margin: 0 auto;
   width: 40rem;
-}
 
-section {
-  border-top: 1px solid #000000;
-  padding: 2rem;
+  > section {
+    border-top: 1px solid #000000;
+    padding: 2rem;
+
+    > p {
+      font-family: sans-serif;
+    }
+  }
 }
 
 textarea {

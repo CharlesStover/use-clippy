@@ -7,13 +7,14 @@ interface Props {
 }
 
 export default function Prism({ children, lang }: Props): JSX.Element {
-  const { ref } = usePrism();
+  const { dangerouslySetInnerHTML } = usePrism({ children, lang });
 
   return (
-    <pre>
-      <code className={`language-${lang}`} ref={ref}>
-        {children}
-      </code>
+    <pre className={`language-${lang}`}>
+      <code
+        className={`language-${lang}`}
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      />
     </pre>
   );
 }

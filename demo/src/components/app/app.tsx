@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code } from '..';
+import { Code, Prism } from '..';
 import { useApp } from './hooks';
 import './app.scss';
 
@@ -18,6 +18,7 @@ export default function App(): JSX.Element {
         <a
           href="https://www.npmjs.com/package/use-clippy"
           rel="noreferrer noopener"
+          target="_blank"
           title="use-clippy - npm"
         >
           use-clippy
@@ -25,7 +26,7 @@ export default function App(): JSX.Element {
         demo
       </h1>
       <section>
-        <h2>Reading your clipboard</h2>
+        <h2>Reading your clipboard 👓</h2>
         <p>Your clipboard's contents are displayed here.</p>
         <textarea disabled value={clipboard} />
         <Code>{`
@@ -35,15 +36,16 @@ return <textarea disabled value={clipboard} />;
         `}</Code>
       </section>
       <section>
-        <h2>Setting your clipboard</h2>
+        <h2>Setting your clipboard ✍</h2>
         <p>
           Clicking the <em>Copy</em> button will set your clipboard's value to
           the input value.
         </p>
         <p>
-          <strong>Note:</strong> By reading your clipboard, the <em>Copy</em>{' '}
-          button is disabled if your clipboard already matches the input value.
+          The <em>Copy</em> button is disabled if your clipboard already matches
+          the input value.
         </p>
+        <p>The textarea in the previous section will update.</p>
         <input onChange={handleInputChange} value={inputValue} />
         <button disabled={isInputCopyDisabled} onClick={handleInputCopyClick}>
           Copy
@@ -51,18 +53,33 @@ return <textarea disabled value={clipboard} />;
         <Code>{`
 const [clipboard, setClipboard] = useClippy();
 
-const isCopyDisabled = clipboard === inputValue;
+const isDisabled = clipboard === inputValue;
 
-const handleCopyClick = React.useCallback(() => {
+const handleClick = React.useCallback(() => {
   setClipboard(inputValue);
 }, [inputValue]);
 
 return (
-  <button disabled={isCopyDisabled} onClick={handleCopyClick}>
+  <button disabled={isDisabled} onClick={handleClick}>
     Copy
   </button>
 );
         `}</Code>
+      </section>
+      <section>
+        <h2>Sponsor 💗</h2>
+        <p>
+          If you are a fan of this project, you may{' '}
+          <a
+            href="https://github.com/sponsors/CharlesStover"
+            rel="nofollow noreferrer noopener"
+            target="_blank"
+            title="Sponsor @CharlesStover on GitHub Sponsors"
+          >
+            become a sponsor
+          </a>{' '}
+          via GitHub's Sponsors Program.
+        </p>{' '}
       </section>
     </main>
   );
