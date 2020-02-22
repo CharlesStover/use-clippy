@@ -26,6 +26,18 @@ export default function App(): JSX.Element {
         demo
       </h1>
       <div>
+        <a
+          href="https://twitter.com/intent/tweet?text=useClippy%20lets%20you%20manage%20your%20users'%20clipboards%20with%20a%20React%20hook.&amp;url=https://www.npmjs.com/package/use-clippy&amp;via=CharlesStover&amp;hashtags=react,reactjs,javascript,typescript,webdev,webdevelopment"
+          rel="nofollow noreferrer noopener"
+          target="_blank"
+          title="Share use-clippy on Twitter"
+        >
+          <img
+            alt="Tweet"
+            height={20}
+            src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social"
+          />
+        </a>
         <img
           alt="npm version"
           height={20}

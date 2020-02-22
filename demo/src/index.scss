@@ -1,5 +1,9 @@
 a {
-  color: #4040f0;
+  color: #0366d6;
   font-weight: bold;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
