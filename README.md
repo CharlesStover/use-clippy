@@ -10,7 +10,7 @@ _Not to be confused with Microsoft Office's assistant, Clippy._ 📎
 You can see
 [`use-clippy` in action via GitHub Pages](https://charlesstover.github.io/use-clippy/),
 which hosts the
-[`demo`](https://github.com/CharlesStover/demo/tree/master/src) directory.
+[`demo`](https://github.com/CharlesStover/use-clippy/tree/master/demo) directory.
 
 ## Install
 
