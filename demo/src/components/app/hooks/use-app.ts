@@ -3,28 +3,28 @@ import useClippy from 'use-clippy';
 
 interface State {
   clipboard: string;
-  handleInputChange(event: FormEvent<HTMLInputElement>): void;
-  handleInputCopyClick(): void;
-  inputValue: string;
+  handleTextAreaCopyClick(): void;
+  handleTextAreaChange(event: FormEvent<HTMLTextAreaElement>): void;
   isInputCopyDisabled: boolean;
+  textAreaValue: string;
 }
 
 export default function useApp(): State {
   const [clipboard, setClipboard] = useClippy();
 
-  const [inputValue, setInputValue] = React.useState<string>('some value');
+  const [textAreaValue, setTextAreaValue] = React.useState('some value');
 
-  const handleInputChange = React.useCallback(
-    (e: FormEvent<HTMLInputElement>): void => {
-      const newInputValue: string = e.currentTarget.value;
-      setInputValue(newInputValue);
+  const handleTextAreaChange = React.useCallback(
+    (e: FormEvent<HTMLTextAreaElement>): void => {
+      const newValue: string = e.currentTarget.value;
+      setTextAreaValue(newValue);
     },
-    [setInputValue],
+    [],
   );
 
-  const handleInputCopyClick = React.useCallback((): void => {
-    setClipboard(inputValue);
-  }, [inputValue, setClipboard]);
+  const handleTextAreaCopyClick = React.useCallback((): void => {
+    setClipboard(textAreaValue);
+  }, [setClipboard, textAreaValue]);
 
   // Page mysteriously loads in the middle. Probably due to Prism rendering
   //   styles asynchronously. Scroll to the top of the body on load to fix this.
@@ -34,9 +34,9 @@ export default function useApp(): State {
 
   return {
     clipboard,
-    handleInputChange,
-    handleInputCopyClick,
-    inputValue,
-    isInputCopyDisabled: clipboard === inputValue,
+    handleTextAreaChange,
+    handleTextAreaCopyClick,
+    isInputCopyDisabled: clipboard === textAreaValue,
+    textAreaValue,
   };
 }

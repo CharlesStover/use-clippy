@@ -56,16 +56,17 @@ const NOT_ALLOWED_ERROR = new Error('NotAllowed');
 
 
 
-const zeroStyles = (i: HTMLInputElement, ...properties: string[]): void => {
+const zeroStyles = (element: HTMLElement, ...properties: string[]): void => {
   for (const property of properties) {
-    i.style.setProperty(property, '0');
+    element.style.setProperty(property, '0');
   }
 };
 
-const createInput = (): HTMLInputElement => {
-  const i: HTMLInputElement = document.createElement('input');
-  i.setAttribute('size', '0');
-  zeroStyles(i,
+const createTextArea = (): HTMLTextAreaElement => {
+  const textArea: HTMLTextAreaElement = document.createElement('textarea');
+  textArea.setAttribute('cols', '0');
+  textArea.setAttribute('rows', '0');
+  zeroStyles(textArea,
     'border-width',
     'bottom',
     'margin-left', 'margin-top',
@@ -73,54 +74,54 @@ const createInput = (): HTMLInputElement => {
     'padding-bottom', 'padding-left', 'padding-right', 'padding-top',
     'right',
   );
-  i.style.setProperty('box-sizing', 'border-box');
-  i.style.setProperty('height', '1px');
-  i.style.setProperty('margin-bottom', '-1px');
-  i.style.setProperty('margin-right', '-1px');
-  i.style.setProperty('max-height', '1px');
-  i.style.setProperty('max-width', '1px');
-  i.style.setProperty('min-height', '1px');
-  i.style.setProperty('min-width', '1px');
-  i.style.setProperty('outline-color', 'transparent');
-  i.style.setProperty('position', 'absolute');
-  i.style.setProperty('width', '1px');
-  document.body.appendChild(i);
-  return i;
+  textArea.style.setProperty('box-sizing', 'border-box');
+  textArea.style.setProperty('height', '1px');
+  textArea.style.setProperty('margin-bottom', '-1px');
+  textArea.style.setProperty('margin-right', '-1px');
+  textArea.style.setProperty('max-height', '1px');
+  textArea.style.setProperty('max-width', '1px');
+  textArea.style.setProperty('min-height', '1px');
+  textArea.style.setProperty('min-width', '1px');
+  textArea.style.setProperty('outline-color', 'transparent');
+  textArea.style.setProperty('position', 'absolute');
+  textArea.style.setProperty('width', '1px');
+  document.body.appendChild(textArea);
+  return textArea;
 };
 
-const removeInput = (i: HTMLInputElement): void => {
-  document.body.removeChild(i);
+const removeElement = (element: HTMLElement): void => {
+  element.parentNode!.removeChild(element);
 };
 
 const read = (): string => {
-  const i = createInput();
-  i.focus();
-  const success = document.execCommand('paste');
+  const textArea: HTMLTextAreaElement = createTextArea();
+  textArea.focus();
+  const success: boolean = document.execCommand('paste');
 
   // If we don't have permission to read the clipboard,
   //   cleanup and throw an error.
   if (!success) {
-    removeInput(i);
+    removeElement(textArea);
     throw NOT_ALLOWED_ERROR;
   }
-  const value = i.value;
-  removeInput(i);
+  const value: string = textArea.value;
+  removeElement(textArea);
   return value;
 };
 
 const write = (text: string): void => {
-  const i = createInput();
-  i.setAttribute('value', text);
-  i.select();
-  const success = document.execCommand('copy');
-  removeInput(i);
+  const textArea: HTMLTextAreaElement = createTextArea();
+  textArea.innerHTML = text;
+  textArea.select();
+  const success: boolean = document.execCommand('copy');
+  removeElement(textArea);
   if (!success) {
     throw NOT_ALLOWED_ERROR;
   }
 };
 
 const useClippy = (): ClipboardTuple => {
-  const [ clipboard, setClipboard ] = React.useState('');
+  const [clipboard, setClipboard] = React.useState('');
 
   // If the user manually updates their clipboard,
   //   re-render with the new value.
@@ -155,7 +156,7 @@ const useClippy = (): ClipboardTuple => {
         if (selection) {
           setClipboard(selection.toString());
         }
-      } catch (_e) { }
+      } catch (_err) { }
     }
     document.addEventListener('copy', clipboardListener);
     document.addEventListener('cut', clipboardListener);
@@ -176,7 +177,7 @@ const useClippy = (): ClipboardTuple => {
           await navigator.clipboard.writeText(text);
           setClipboard(text);
         }
-        catch (_e) { }
+        catch (_err) { }
       }
     }
   }, []);
@@ -191,7 +192,7 @@ const useClippy = (): ClipboardTuple => {
     }
 
     // If synchronous reading is disabled, try to read asynchronously.
-    catch (e) {
+    catch (_syncErr) {
       if (isClipboardApiEnabled(navigator)) {
         (async (): Promise<void> => {
           try {
@@ -200,16 +201,13 @@ const useClippy = (): ClipboardTuple => {
               setClipboard(text);
             }
           }
-          catch (_e) { }
+          catch (_asyncErr) { }
         })();
       }
     }
   }, [clipboard]);
 
-  return [
-    clipboard,
-    syncClipboard,
-  ];
+  return [clipboard, syncClipboard];
 };
 
 // Required for TypeScript to output a correct .d.ts file.

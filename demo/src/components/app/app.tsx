@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Code } from '..';
 import { useApp } from './hooks';
 import './app.scss';
 
-export default function App(): JSX.Element {
+export default function App(): ReactElement {
   const {
     clipboard,
-    handleInputChange,
-    handleInputCopyClick,
-    inputValue,
+    handleTextAreaChange,
+    handleTextAreaCopyClick,
     isInputCopyDisabled,
+    textAreaValue,
   } = useApp();
 
   return (
@@ -85,18 +85,18 @@ return <textarea disabled value={clipboard} />;
           the input value.
         </p>
         <p>The textarea in the previous section will update.</p>
-        <input onChange={handleInputChange} value={inputValue} />
-        <button disabled={isInputCopyDisabled} onClick={handleInputCopyClick}>
+        <textarea onChange={handleTextAreaChange} value={textAreaValue} />
+        <button disabled={isInputCopyDisabled} onClick={handleTextAreaCopyClick}>
           Copy
         </button>
         <Code>{`
 const [clipboard, setClipboard] = useClippy();
 
-const isDisabled = clipboard === inputValue;
+const isDisabled = clipboard === textAreaValue;
 
 const handleClick = React.useCallback(() => {
-  setClipboard(inputValue);
-}, [inputValue]);
+  setClipboard(textAreaValue);
+}, [setClipboard, textAreaValue]);
 
 return (
   <button disabled={isDisabled} onClick={handleClick}>
