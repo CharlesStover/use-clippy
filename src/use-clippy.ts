@@ -111,7 +111,7 @@ const read = (): string => {
 
 const write = (text: string): void => {
   const textArea: HTMLTextAreaElement = createTextArea();
-  textArea.innerHTML = text;
+  textArea.value = text;
   textArea.select();
   const success: boolean = document.execCommand('copy');
   removeElement(textArea);
